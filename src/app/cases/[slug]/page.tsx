@@ -12,7 +12,7 @@ interface PageProps {
 }
 
 // ==========================================
-// BANCO DE DADOS DOS CASES (Atualizado)
+// BANCO DE DADOS DOS CASES
 // ==========================================
 const casesData: Record<string, any> = {
   'ct-vanessa': {
@@ -20,7 +20,7 @@ const casesData: Record<string, any> = {
     tag: 'Centro de Treinamento // Luta',
     stack: 'Next.js / Supabase',
     status: 'Em Produção',
-    displayMode: 'landscape', // <-- Invertido: Agora é janela de Desktop (Mac)
+    displayMode: 'responsive', // <-- NOVO MODO: Mac no PC, iPhone no Mobile!
     liveUrl: 'https://ctvanessacarvalho.netlify.app/', 
     previewText: 'Arquitetura de Gestão // Dashboard',
     cover: '/cases/ctvanessa1.jpeg',
@@ -40,12 +40,12 @@ const casesData: Record<string, any> = {
     title: 'HabitFlow',
     tag: 'Produtividade Gamificada',
     stack: 'TypeScript / MySQL',
-    status: 'Em Produção', // <-- Atualizado
+    status: 'Em Produção',
     displayMode: 'landscape',
     liveUrl: null, 
     previewText: 'Status: Confidencial',
-    cover: '', // <-- Vazio para forçar o banner de Surpresa
-    img2: '/cases/habitflow1.jpeg', // <-- Fotos jogadas para baixo
+    cover: '', 
+    img2: '/cases/habitflow1.jpeg', 
     img3: '/cases/habitflow2.jpeg', 
     scores: [
       { value: '98%', label: 'Retenção Estimada' },
@@ -62,7 +62,7 @@ const casesData: Record<string, any> = {
     tag: 'Performance Fitness',
     stack: 'React / MySQL',
     status: 'Em Produção',
-    displayMode: 'portrait', // <-- Invertido: Agora é modo Celular (App)
+    displayMode: 'portrait', 
     liveUrl: 'https://ironproo.netlify.app/', 
     previewText: 'Dashboard Atlético // Mobile App',
     cover: '/cases/ironpro1.png', 
@@ -95,7 +95,6 @@ export default function CaseStudy({ params }: PageProps) {
     return () => ctx.revert()
   }, [slug])
 
-  // Placeholder Estilizado (Usado no banner surpresa do HabitFlow)
   const PlaceholderImage = ({ aspect, text }: { aspect: string, text: string }) => (
     <div className={`w-full ${aspect} bg-[#050505] border border-white/5 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden`}>
       <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full animate-pulse" />
@@ -103,6 +102,13 @@ export default function CaseStudy({ params }: PageProps) {
       <span className="font-mono text-[10px] text-white/30 tracking-[0.5em] uppercase relative z-10">Aguarde_</span>
     </div>
   );
+
+  // Define as classes do container baseado no displayMode
+  const containerClasses = project.displayMode === 'portrait' 
+    ? 'aspect-[9/19] max-w-[360px]' 
+    : project.displayMode === 'responsive' 
+    ? 'aspect-[9/19] max-w-[360px] md:aspect-video md:max-w-full' // Vertical no mobile, Horizontal no PC
+    : 'aspect-video w-full';
 
   return (
     <main ref={pageRef} className="bg-[#020203] min-h-screen text-white pb-40 relative overflow-hidden">
@@ -141,22 +147,22 @@ export default function CaseStudy({ params }: PageProps) {
       <section className="px-6 max-w-7xl mx-auto relative z-10">
         
         {/* ======================================================== */}
-        {/* CAPA INTERATIVA (MINI BROWSER OU IMAGEM/SURPRESA) */}
+        {/* CAPA INTERATIVA (MINI BROWSER ADAPTATIVO) */}
         {/* ======================================================== */}
-        <div className={`reveal opacity-0 translate-y-10 w-full rounded-[2rem] bg-[#0a0a0a] border border-white/20 overflow-hidden mb-32 relative shadow-2xl z-20 mx-auto
-          ${project.displayMode === 'portrait' ? 'aspect-[9/19] max-w-[360px]' : 'aspect-video w-full'}`}
-        >
+        <div className={`reveal opacity-0 translate-y-10 w-full rounded-[2rem] bg-[#0a0a0a] border border-white/20 overflow-hidden mb-32 relative shadow-2xl z-20 mx-auto transition-all duration-500 ${containerClasses}`}>
            {project.liveUrl ? (
              <div className="w-full h-full flex flex-col relative bg-black">
-                {/* Interface do Navegador */}
-                {project.displayMode === 'portrait' ? (
-                  // Notch do Celular (IronPro)
-                  <div className="absolute top-0 w-full flex justify-center z-30 pointer-events-none mt-2">
+                
+                {/* Notch do Celular (Aparece no 'portrait' OU no mobile do 'responsive') */}
+                {(project.displayMode === 'portrait' || project.displayMode === 'responsive') && (
+                  <div className={`absolute top-0 w-full justify-center z-30 pointer-events-none mt-2 ${project.displayMode === 'responsive' ? 'flex md:hidden' : 'flex'}`}>
                      <div className="w-32 h-7 bg-black rounded-full border border-white/10"></div>
                   </div>
-                ) : (
-                  // Barra Superior do Mac (CT Vanessa)
-                  <div className="h-10 bg-[#1e1e1e] border-b border-white/5 flex items-center px-4 w-full z-30 shrink-0">
+                )}
+
+                {/* Barra Superior do Mac (Aparece no 'landscape' OU no PC do 'responsive') */}
+                {(project.displayMode === 'landscape' || project.displayMode === 'responsive') && (
+                  <div className={`h-10 bg-[#1e1e1e] border-b border-white/5 items-center px-4 w-full z-30 shrink-0 ${project.displayMode === 'responsive' ? 'hidden md:flex' : 'flex'}`}>
                     <div className="flex gap-2 mr-4">
                       <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
                       <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
@@ -178,7 +184,7 @@ export default function CaseStudy({ params }: PageProps) {
                 />
              </div>
            ) : (
-             // FALLBACK: RENDERIZA O BANNER SURPRESA (HabitFlow)
+             // FALLBACK: RENDERIZA O BANNER SURPRESA
              <>
                {project.cover ? (
                   <Image 
@@ -186,10 +192,6 @@ export default function CaseStudy({ params }: PageProps) {
                     className={`transition-transform duration-700 group-hover:scale-105 ${project.displayMode === 'portrait' ? 'object-contain' : 'object-cover'}`} 
                   />
                ) : <PlaceholderImage aspect="h-full w-full" text="BREVE SURPRESA" />}
-               <div className="absolute inset-0 bg-gradient-to-t from-[#020203] via-transparent to-transparent opacity-60 pointer-events-none" />
-               <p className="absolute bottom-6 left-6 text-white/40 font-mono text-[10px] tracking-[0.6em] uppercase z-10 pointer-events-none">
-                 {project.previewText}
-               </p>
              </>
            )}
         </div>
@@ -243,9 +245,8 @@ export default function CaseStudy({ params }: PageProps) {
         </div>
       </section>
 
-      {/* 3. CONTACT HUB - COMPLETO RESTAURADO */}
+      {/* 3. CONTACT HUB */}
        <section className="mt-40 pt-20 border-t border-white/5 px-6 max-w-7xl mx-auto text-center relative overflow-hidden z-10">
-        
         <div className="reveal opacity-0 translate-y-10 mb-16 flex justify-center">
           <div className="relative w-24 h-24 group">
             <div className="absolute inset-0 bg-blue-500/20 blur-[45px] rounded-full animate-pulse" />
@@ -260,9 +261,7 @@ export default function CaseStudy({ params }: PageProps) {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mb-32 font-mono">
-            
-            {/* WHATSAPP */}
-            <a href="https://wa.me/5512999999999" target="_blank" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
+            <a href="https://wa.me/5512982776902" target="_blank" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 to-transparent" />
               <div className="relative bg-[#020203] px-8 py-10 flex flex-col items-start gap-4 hover:bg-emerald-500/[0.02] transition-colors h-full rounded-lg">
                 <span className="text-emerald-500 text-[9px] tracking-widest uppercase">Canal Direto // WhatsApp</span>
@@ -270,9 +269,7 @@ export default function CaseStudy({ params }: PageProps) {
                 <div className="w-0 h-[1px] bg-emerald-500 transition-all duration-500 group-hover:w-full" />
               </div>
             </a>
-
-            {/* INSTAGRAM */}
-            <a href="https://instagram.com/logicstackux" target="_blank" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
+            <a href="https://instagram.com/logicstack.ux" target="_blank" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
               <div className="relative bg-[#020203] px-8 py-10 flex flex-col items-start gap-4 hover:bg-white/[0.01] transition-colors h-full rounded-lg">
                 <span className="text-white/40 text-[9px] tracking-widest uppercase">Social // Portfólio</span>
@@ -280,9 +277,7 @@ export default function CaseStudy({ params }: PageProps) {
                 <div className="w-0 h-[1px] bg-white transition-all duration-500 group-hover:w-full" />
               </div>
             </a>
-
-            {/* EMAIL */}
-            <a href="mailto:contato@logicstackux.com" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
+            <a href="mailto:logicstackux@outlook.com" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-transparent" />
               <div className="relative bg-[#020203] px-8 py-10 flex flex-col items-start gap-4 hover:bg-blue-500/[0.02] transition-colors h-full rounded-lg">
                 <span className="text-blue-500 text-[9px] tracking-widest uppercase">E-mail // Corporativo</span>
@@ -290,7 +285,6 @@ export default function CaseStudy({ params }: PageProps) {
                 <div className="w-0 h-[1px] bg-blue-500 transition-all duration-500 group-hover:w-full" />
               </div>
             </a>
-
           </div>
 
           <Link href="/" className="group inline-flex flex-col items-center gap-6 py-10 mb-20">
