@@ -1,13 +1,12 @@
 'use client'
 import { useLayoutEffect, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image' // <-- NOVO: Importando Image para a capa
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Projetos agora puxando as capas oficiais da LogicStack UX
 const projects = [
   { 
     id: "01", 
@@ -15,7 +14,7 @@ const projects = [
     slug: "ct-vanessa", 
     tag: "HealthTech", 
     desc: "Sistemas de alta precisão para gestão clínica e acompanhamento de alunos.",
-    image: "/cases/ctvanessa1.jpeg" // Capa real
+    image: "/cases/ctvanessa1.jpeg"
   },
   { 
     id: "02", 
@@ -23,15 +22,15 @@ const projects = [
     slug: "habitflow", 
     tag: "Productivity", 
     desc: "Gamificação focada em psicologia comportamental e formação de rotinas.",
-    image: "/cases/habitflow1.jpeg" // Capa real
+    image: "/cases/habitflow1.jpeg"
   },
   { 
     id: "03", 
-    title: "IronPro", 
-    slug: "ironpro", 
-    tag: "Fitness", 
-    desc: "Gestão fitness de elite e monitoramento de performance atlética.",
-    image: "/cases/ironpro1.png" // Capa real
+    title: "Dona Benita Pizzaria", 
+    slug: "dona-benita-pizzaria", 
+    tag: "Food & Delivery", 
+    desc: "Sistema de pedidos integrado e otimização de fluxo para cozinha e atendimento.",
+    image: "/cases/donabenita1.png" // Ajuste o caminho da imagem se necessário
   }
 ]
 
@@ -42,25 +41,24 @@ export const Cases = () => {
     let ctx = gsap.context(() => {
       const cards = gsap.utils.toArray(".project-card")
       
-      cards.forEach((card: any, i) => {
-        // Efeito de "Cair" e Empilhar
+      cards.forEach((card: any) => {
+        // Rolagem 100% fluida, leve e sem travamentos
         gsap.fromTo(card, 
           { 
-            y: 100, 
+            y: 50, 
             opacity: 0, 
-            scale: 0.9,
-            filter: "blur(10px)" 
+            scale: 0.98 
           },
           { 
             y: 0, 
             opacity: 1, 
             scale: 1,
-            filter: "blur(0px)",
+            duration: 0.7,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: card,
               start: "top 85%",
-              end: "top 40%",
-              scrub: 1,
+              toggleActions: "play none none reverse"
             }
           }
         )
@@ -71,62 +69,61 @@ export const Cases = () => {
   }, [])
 
   return (
-    <section ref={containerRef} className="bg-[#020203] py-20 relative z-10">
+    <section 
+      ref={containerRef} 
+      id="cases"
+      className="py-32 relative z-10 transition-colors duration-500"
+      style={{ backgroundColor: '#F0F4F8' }} // Mantém a harmonia com o fundo azul claro
+    >
       <div className="max-w-7xl mx-auto px-6">
         
         <div className="mb-20">
-          <span className="text-blue-500 font-mono text-[10px] tracking-[0.5em] uppercase mb-4 block drop-shadow-[0_0_10px_rgba(30,144,255,0.4)]">
+          <span className="text-blue-700 font-mono text-[10px] tracking-[0.5em] uppercase mb-4 block font-bold">
             Selected Works
           </span>
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
-            Projetos <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 italic font-light">Estratégicos.</span>
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-slate-900">
+            Projetos <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-900 italic font-light">Estratégicos.</span>
           </h2>
         </div>
 
-        {/* Container de Cards Verticais */}
-        <div className="flex flex-col gap-20 md:gap-40">
+        {/* Container de Cards Verticais (Sem efeito sticky pesado) */}
+        <div className="flex flex-col gap-12 md:gap-20">
           {projects.map((project) => (
-            <div key={project.id} className="project-card-wrapper sticky top-20">
-              <div className="project-card w-full min-h-[60vh] bg-white/[0.02] backdrop-blur-3xl border border-white/10 hover:border-blue-500/30 transition-colors duration-500 rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-2xl relative group">
+            <div key={project.id} className="project-card-wrapper">
+              <div className="project-card w-full min-h-[50vh] bg-white border border-slate-200/80 hover:border-blue-500/50 transition-all duration-300 rounded-[36px] overflow-hidden flex flex-col md:flex-row shadow-xl shadow-slate-200/50 relative group">
                 
                 {/* Lado do Texto */}
-                <div className="flex-1 p-10 md:p-20 flex flex-col justify-center relative z-10">
-                  <span className="text-blue-500 font-mono text-xs tracking-[0.5em] uppercase mb-6 drop-shadow-md">
+                <div className="flex-1 p-10 md:p-16 flex flex-col justify-center relative z-10">
+                  <span className="text-blue-700 font-mono text-xs tracking-[0.4em] uppercase mb-6 font-semibold">
                     {project.id} // {project.tag}
                   </span>
-                  <h3 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 leading-none">
+                  <h3 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-none">
                     {project.title}
                   </h3>
-                  <p className="text-white/50 text-xl font-light max-w-md leading-relaxed">
+                  <p className="text-slate-600 text-lg md:text-xl font-normal max-w-md leading-relaxed">
                     {project.desc}
                   </p>
                   
-                  <div className="mt-12">
+                  <div className="mt-10">
                      <Link 
                        href={`/cases/${project.slug}`} 
-                       className="px-10 py-4 border border-white/10 rounded-full text-[10px] tracking-[0.3em] font-bold hover:bg-blue-600 hover:border-blue-500 transition-all uppercase flex items-center gap-4 w-fit"
+                       className="px-8 py-3.5 border border-slate-300 rounded-full text-xs tracking-[0.25em] font-bold text-slate-800 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all uppercase flex items-center gap-4 w-fit shadow-sm"
                      >
-                       View Blueprint
-                       <div className="w-1 h-1 rounded-full bg-blue-400 group-hover:bg-white transition-colors" />
+                       Ver Projeto
+                       <div className="w-1.5 h-1.5 rounded-full bg-blue-600 group-hover:bg-white transition-colors" />
                      </Link>
                   </div>
                 </div>
 
                 {/* Lado Visual (Imagem Real da UI) */}
-                <div className="flex-1 relative overflow-hidden flex items-center justify-center min-h-[40vh] md:min-h-full">
-                  {/* Máscara escura para garantir a leitura e dar ar premium */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#020203] via-transparent to-transparent z-10 hidden md:block" />
-                  
+                <div className="flex-1 relative overflow-hidden flex items-center justify-center min-h-[35vh] md:min-h-full bg-slate-100">
                   <Image 
                     src={project.image}
                     alt={`Preview do projeto ${project.title}`}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  
-                  {/* Efeito de Overlay Tecnológico */}
-                  <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay z-10 transition-opacity duration-500 group-hover:opacity-0" />
                 </div>
 
               </div>

@@ -12,7 +12,7 @@ interface PageProps {
 }
 
 // ==========================================
-// BANCO DE DADOS DOS CASES
+// BANCO DE DADOS DOS CASES (Atualizado com Dona Benita)
 // ==========================================
 const casesData: Record<string, any> = {
   'ct-vanessa': {
@@ -20,7 +20,7 @@ const casesData: Record<string, any> = {
     tag: 'Centro de Treinamento // Luta',
     stack: 'Next.js / Supabase',
     status: 'Em Produção',
-    displayMode: 'responsive', // <-- NOVO MODO: Mac no PC, iPhone no Mobile!
+    displayMode: 'responsive', 
     liveUrl: 'https://ctvanessacarvalho.netlify.app/', 
     previewText: 'Arquitetura de Gestão // Dashboard',
     cover: '/cases/ctvanessa1.jpeg',
@@ -57,26 +57,26 @@ const casesData: Record<string, any> = {
     labelImg2: 'Gamificação // UI State',
     labelImg3: 'Análise de Progresso // Dashboard'
   },
-  'ironpro': {
-    title: 'IronPro',
-    tag: 'Performance Fitness',
-    stack: 'React / MySQL',
+  'dona-benita-pizzaria': {
+    title: 'Dona Benita Pizzaria',
+    tag: 'Food & Delivery',
+    stack: 'React / Node.js',
     status: 'Em Produção',
-    displayMode: 'portrait', 
-    liveUrl: 'https://ironproo.netlify.app/', 
-    previewText: 'Dashboard Atlético // Mobile App',
-    cover: '/cases/ironpro1.png', 
-    img2: '/cases/ironpro2.jpeg',
-    img3: '/cases/ironpro3.jpeg',
+    displayMode: 'responsive', 
+    liveUrl: null, 
+    previewText: 'Sistema de Pedidos // Delivery',
+    cover: '/cases/donabenita1.png', 
+    img2: '/cases/donabenita2.png',
+    img3: '/cases/donabenita3.png',
     scores: [
-      { value: 'MySQL', label: 'Database Engine' },
-      { value: 'High', label: 'Fidelidade de Dados' },
-      { value: 'Elite', label: 'Padrão de UX' }
+      { value: 'Fast', label: 'Fluxo de Pedidos' },
+      { value: '100%', label: 'Controle de Cozinha' },
+      { value: 'UX', label: 'Foco em Conversão' }
     ],
-    desafio: 'O esporte de elite não aceita margem de erro. O IronPro exigia um painel capaz de cruzar centenas de métricas de performance atlética, carga de treino e recuperação, entregando insights visuais precisos para treinadores e atletas sem sobrecarregar a interface gráfica.',
-    solucao: 'Desenvolvemos pipelines de dados extremamente eficientes utilizando React e MySQL. A UI foi pensada no modo "Dark/High-Contrast" para facilitar a leitura em ambientes de treino. Cada gráfico e indicador de performance consulta o banco relacional de forma otimizada, entregando o mais puro estado da arte em engenharia de software para o mercado fitness.',
-    labelImg2: 'Métricas de Elite // Data Viz',
-    labelImg3: 'Monitoramento de Carga // UI'
+    desafio: 'O mercado de delivery exige agilidade extrema e zero atrito no momento do pedido. O desafio na Dona Benita Pizzaria foi estruturar um fluxo de cardápio digital altamente intuitivo, integrado diretamente com a operação da cozinha para eliminar erros e acelerar a expedição das entregas.',
+    solucao: 'Desenvolvemos uma interface limpa e focada em conversão rápida, aliada a um painel de controle otimizado para os pedidos em tempo real. A arquitetura garante estabilidade mesmo em horários de pico, proporcionando uma experiência impecável tanto para o cliente quanto para a operação interna.',
+    labelImg2: 'Cardápio Digital // UI Clean',
+    labelImg3: 'Painel de Pedidos // Cozinha'
   }
 }
 
@@ -96,29 +96,28 @@ export default function CaseStudy({ params }: PageProps) {
   }, [slug])
 
   const PlaceholderImage = ({ aspect, text }: { aspect: string, text: string }) => (
-    <div className={`w-full ${aspect} bg-[#050505] border border-white/5 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden`}>
-      <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full animate-pulse" />
-      <span className="font-mono text-sm md:text-lg text-blue-500 tracking-[0.3em] uppercase relative z-10 mb-2">{text}</span>
-      <span className="font-mono text-[10px] text-white/30 tracking-[0.5em] uppercase relative z-10">Aguarde_</span>
+    <div className={`w-full ${aspect} bg-slate-100 border border-slate-200 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden`}>
+      <div className="absolute inset-0 bg-blue-500/5 blur-[60px] rounded-full animate-pulse" />
+      <span className="font-mono text-sm md:text-lg text-blue-700 tracking-[0.3em] uppercase relative z-10 mb-2">{text}</span>
+      <span className="font-mono text-[10px] text-slate-400 tracking-[0.5em] uppercase relative z-10">Aguarde_</span>
     </div>
   );
 
-  // Define as classes do container baseado no displayMode
   const containerClasses = project.displayMode === 'portrait' 
     ? 'aspect-[9/19] max-w-[360px]' 
     : project.displayMode === 'responsive' 
-    ? 'aspect-[9/19] max-w-[360px] md:aspect-video md:max-w-full' // Vertical no mobile, Horizontal no PC
+    ? 'aspect-[9/19] max-w-[360px] md:aspect-video md:max-w-full' 
     : 'aspect-video w-full';
 
   return (
-    <main ref={pageRef} className="bg-[#020203] min-h-screen text-white pb-40 relative overflow-hidden">
+    <main ref={pageRef} className="bg-[#FAF8F5] min-h-screen text-slate-900 pb-40 relative overflow-hidden transition-colors duration-500">
       
       {/* NAVBAR */}
-      <nav className="fixed top-0 left-0 w-full z-50 p-6 flex justify-between items-center bg-gradient-to-b from-[#020203] to-transparent pointer-events-none">
-        <Link href="/" className="text-white font-bold tracking-widest text-xs hover:text-blue-500 transition-colors uppercase pointer-events-auto">
+      <nav className="fixed top-0 left-0 w-full z-50 p-6 flex justify-between items-center bg-[#FAF8F5]/90 backdrop-blur-md border-b border-slate-200/60 pointer-events-auto">
+        <Link href="/" className="text-slate-900 font-bold tracking-widest text-xs hover:text-blue-700 transition-colors uppercase">
           ← LOGICSTACK UX
         </Link>
-        <span className="text-white/30 font-mono text-[10px] tracking-widest uppercase">
+        <span className="text-slate-500 font-mono text-[10px] tracking-widest uppercase">
           Estudo de Caso // 2026
         </span>
       </nav>
@@ -126,65 +125,59 @@ export default function CaseStudy({ params }: PageProps) {
       {/* HEADER */}
       <section className="pt-40 px-6 max-w-7xl mx-auto text-left relative z-10">
         <div className="reveal opacity-0 translate-y-10">
-          <span className="text-blue-500 font-mono text-xs tracking-[0.5em] uppercase block mb-4">
+          <span className="text-blue-700 font-mono text-xs tracking-[0.5em] uppercase block mb-4 font-bold">
             {project.tag}
           </span>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 uppercase italic leading-none">
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 uppercase italic leading-none text-slate-900">
             {project.title}
           </h1>
         </div>
 
         {/* INFO GRID */}
-        <div className="reveal opacity-0 translate-y-10 grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-10 mb-20 font-mono z-10 relative">
-          <div><span className="block text-white/30 text-[10px] uppercase mb-2">Ciclo</span><p className="text-sm">2026</p></div>
-          <div><span className="block text-white/30 text-[10px] uppercase mb-2">Engenharia</span><p className="text-sm text-blue-400">{project.stack}</p></div>
-          <div><span className="block text-white/30 text-[10px] uppercase mb-2">Status</span><p className="text-sm">{project.status}</p></div>
-          <div><span className="block text-white/30 text-[10px] uppercase mb-2">Sede</span><p className="text-sm">Jacareí, SP</p></div>
+        <div className="reveal opacity-0 translate-y-10 grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-slate-200 py-10 mb-20 font-mono z-10 relative">
+          <div><span className="block text-slate-400 text-[10px] uppercase mb-2">Ciclo</span><p className="text-sm text-slate-800">2026</p></div>
+          <div><span className="block text-slate-400 text-[10px] uppercase mb-2">Engenharia</span><p className="text-sm text-blue-700 font-semibold">{project.stack}</p></div>
+          <div><span className="block text-slate-400 text-[10px] uppercase mb-2">Status</span><p className="text-sm text-slate-800">{project.status}</p></div>
+          <div><span className="block text-slate-400 text-[10px] uppercase mb-2">Sede</span><p className="text-sm text-slate-800">Jacareí, SP</p></div>
         </div>
       </section>
 
       {/* CONTEÚDO PRINCIPAL */}
       <section className="px-6 max-w-7xl mx-auto relative z-10">
         
-        {/* ======================================================== */}
-        {/* CAPA INTERATIVA (MINI BROWSER ADAPTATIVO) */}
-        {/* ======================================================== */}
-        <div className={`reveal opacity-0 translate-y-10 w-full rounded-[2rem] bg-[#0a0a0a] border border-white/20 overflow-hidden mb-32 relative shadow-2xl z-20 mx-auto transition-all duration-500 ${containerClasses}`}>
+        {/* MOCKUP / CAPA */}
+        <div className={`reveal opacity-0 translate-y-10 w-full rounded-[2rem] bg-white border border-slate-200 overflow-hidden mb-32 relative shadow-xl shadow-slate-200/50 z-20 mx-auto transition-all duration-500 ${containerClasses}`}>
            {project.liveUrl ? (
-             <div className="w-full h-full flex flex-col relative bg-black">
-                
-                {/* Notch do Celular (Aparece no 'portrait' OU no mobile do 'responsive') */}
-                {(project.displayMode === 'portrait' || project.displayMode === 'responsive') && (
-                  <div className={`absolute top-0 w-full justify-center z-30 pointer-events-none mt-2 ${project.displayMode === 'responsive' ? 'flex md:hidden' : 'flex'}`}>
-                     <div className="w-32 h-7 bg-black rounded-full border border-white/10"></div>
-                  </div>
-                )}
+             <div className="w-full h-full flex flex-col relative bg-slate-50">
+               
+               {(project.displayMode === 'portrait' || project.displayMode === 'responsive') && (
+                 <div className={`absolute top-0 w-full justify-center z-30 pointer-events-none mt-2 ${project.displayMode === 'responsive' ? 'flex md:hidden' : 'flex'}`}>
+                    <div className="w-32 h-7 bg-slate-900 rounded-full border border-slate-700"></div>
+                 </div>
+               )}
 
-                {/* Barra Superior do Mac (Aparece no 'landscape' OU no PC do 'responsive') */}
-                {(project.displayMode === 'landscape' || project.displayMode === 'responsive') && (
-                  <div className={`h-10 bg-[#1e1e1e] border-b border-white/5 items-center px-4 w-full z-30 shrink-0 ${project.displayMode === 'responsive' ? 'hidden md:flex' : 'flex'}`}>
-                    <div className="flex gap-2 mr-4">
-                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
-                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-                      <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
-                    </div>
-                    <div className="mx-auto flex-1 max-w-md bg-[#0a0a0a] border border-white/10 rounded-md py-1 px-4 flex items-center justify-center gap-2">
-                       <span className="text-white/20 text-[10px]">🔒</span>
-                       <span className="text-white/40 text-[10px] font-mono tracking-widest">{project.liveUrl.replace('https://', '')}</span>
-                    </div>
-                  </div>
-                )}
+               {(project.displayMode === 'landscape' || project.displayMode === 'responsive') && (
+                 <div className={`h-10 bg-slate-100 border-b border-slate-200 items-center px-4 w-full z-30 shrink-0 ${project.displayMode === 'responsive' ? 'hidden md:flex' : 'flex'}`}>
+                   <div className="flex gap-2 mr-4">
+                     <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                     <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                     <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                   </div>
+                   <div className="mx-auto flex-1 max-w-md bg-white border border-slate-200 rounded-md py-1 px-4 flex items-center justify-center gap-2">
+                      <span className="text-slate-400 text-[10px]">🔒</span>
+                      <span className="text-slate-600 text-[10px] font-mono tracking-widest">{project.liveUrl.replace('https://', '')}</span>
+                   </div>
+                 </div>
+               )}
 
-                {/* Iframe Funcional */}
-                <iframe 
-                  src={project.liveUrl}
-                  className="w-full h-full flex-1 bg-white"
-                  title={`Live preview of ${project.title}`}
-                  sandbox="allow-scripts allow-same-origin allow-forms"
-                />
+               <iframe 
+                 src={project.liveUrl}
+                 className="w-full h-full flex-1 bg-white"
+                 title={`Live preview of ${project.title}`}
+                 sandbox="allow-scripts allow-same-origin allow-forms"
+               />
              </div>
            ) : (
-             // FALLBACK: RENDERIZA O BANNER SURPRESA
              <>
                {project.cover ? (
                   <Image 
@@ -199,9 +192,9 @@ export default function CaseStudy({ params }: PageProps) {
         {/* SCORES */}
         <div className="reveal opacity-0 translate-y-10 grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
            {project.scores.map((score: any, idx: number) => (
-             <div key={idx} className="p-10 border border-white/5 bg-white/[0.01] rounded-3xl text-center backdrop-blur-sm">
-                <span className="block text-blue-500 font-mono text-4xl font-bold mb-2">{score.value}</span>
-                <span className="text-white/40 text-[10px] uppercase tracking-widest">{score.label}</span>
+             <div key={idx} className="p-10 border border-slate-200 bg-white rounded-3xl text-center shadow-sm">
+                <span className="block text-blue-700 font-mono text-4xl font-bold mb-2">{score.value}</span>
+                <span className="text-slate-500 text-[10px] uppercase tracking-widest font-semibold">{score.label}</span>
              </div>
            ))}
         </div>
@@ -210,34 +203,34 @@ export default function CaseStudy({ params }: PageProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
           <div className="reveal opacity-0 translate-y-10 sticky top-32 space-y-32 pr-10">
             <div>
-              <h2 className="text-4xl font-bold mb-8 tracking-tighter">O Desafio_</h2>
-              <div className="space-y-6 text-white/50 text-xl leading-relaxed font-light">
+              <h2 className="text-4xl font-bold mb-8 tracking-tighter text-slate-900">O Desafio_</h2>
+              <div className="space-y-6 text-slate-600 text-xl leading-relaxed font-normal">
                 <p>{project.desafio}</p>
               </div>
             </div>
             <div>
-              <h2 className="text-4xl font-bold mb-8 tracking-tighter text-blue-500">A Solução_</h2>
-              <div className="space-y-6 text-white/50 text-xl leading-relaxed font-light border-l border-blue-500/30 pl-8">
+              <h2 className="text-4xl font-bold mb-8 tracking-tighter text-blue-700">A Solução_</h2>
+              <div className="space-y-6 text-slate-600 text-xl leading-relaxed font-normal border-l-4 border-blue-600 pl-8">
                 <p>{project.solucao}</p>
               </div>
             </div>
           </div>
           
           <div className="space-y-16">
-            <div className="reveal opacity-0 translate-y-10 aspect-video rounded-3xl bg-white/[0.02] border border-white/10 relative overflow-hidden group">
+            <div className="reveal opacity-0 translate-y-10 aspect-video rounded-3xl bg-white border border-slate-200 relative overflow-hidden group shadow-md">
               {project.img2 ? (
                   <Image src={project.img2} alt="Detail 1" fill sizes="600px" className="object-contain p-4 transition-transform duration-700 group-hover:scale-105" />
               ) : <PlaceholderImage aspect="aspect-video" text="[ IMAGEM EM ESPERA ]" />}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center italic font-mono text-[10px] tracking-widest uppercase pointer-events-none px-4 text-center">
+              <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center italic font-mono text-xs tracking-widest uppercase pointer-events-none px-4 text-center text-white">
                 {project.labelImg2}
               </div>
             </div>
 
-            <div className="reveal opacity-0 translate-y-10 aspect-video rounded-3xl bg-white/[0.02] border border-white/10 relative overflow-hidden group">
+            <div className="reveal opacity-0 translate-y-10 aspect-video rounded-3xl bg-white border border-slate-200 relative overflow-hidden group shadow-md">
               {project.img3 ? (
                   <Image src={project.img3} alt="Detail 2" fill sizes="600px" className="object-contain p-4 transition-transform duration-700 group-hover:scale-105" />
               ) : <PlaceholderImage aspect="aspect-video" text="[ IMAGEM EM ESPERA ]" />}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center italic font-mono text-[10px] tracking-widest uppercase pointer-events-none px-4 text-center">
+              <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center italic font-mono text-xs tracking-widest uppercase pointer-events-none px-4 text-center text-white">
                 {project.labelImg3}
               </div>
             </div>
@@ -245,53 +238,53 @@ export default function CaseStudy({ params }: PageProps) {
         </div>
       </section>
 
-      {/* 3. CONTACT HUB */}
-       <section className="mt-40 pt-20 border-t border-white/5 px-6 max-w-7xl mx-auto text-center relative overflow-hidden z-10">
+      {/* 3. CONTACT HUB (Integrado ao novo rodapé claro e limpo) */}
+      <section className="mt-40 pt-20 border-t border-slate-200 px-6 max-w-7xl mx-auto text-center relative overflow-hidden z-10">
         <div className="reveal opacity-0 translate-y-10 mb-16 flex justify-center">
           <div className="relative w-24 h-24 group">
-            <div className="absolute inset-0 bg-blue-500/20 blur-[45px] rounded-full animate-pulse" />
-            <Image src="/logo-navbar.png" alt="LogicStack UX" fill className="object-contain relative z-10" />
+            <div className="absolute inset-0 bg-blue-500/10 blur-[45px] rounded-full animate-pulse" />
+            <Image src="/logocorreto.png" alt="LogicStack UX" fill className="object-contain relative z-10" />
           </div>
         </div>
 
         <div className="reveal opacity-0 translate-y-10">
-          <p className="text-blue-500 font-mono text-[10px] tracking-[0.8em] uppercase mb-8">Protocolo de Contato // Iniciado</p>
-          <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-16 leading-[0.85] uppercase italic">
-            Pronto para projetar o <br /> <span className="text-white/20 italic font-light">próximo nível?</span>
+          <p className="text-blue-700 font-mono text-[10px] tracking-[0.8em] uppercase mb-8 font-bold">Protocolo de Contato // Iniciado</p>
+          <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-16 leading-[0.85] uppercase italic text-slate-900">
+            Pronto para projetar o <br /> <span className="text-slate-300 italic font-light">próximo nível?</span>
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mb-32 font-mono">
             <a href="https://wa.me/5512982776902" target="_blank" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 to-transparent" />
-              <div className="relative bg-[#020203] px-8 py-10 flex flex-col items-start gap-4 hover:bg-emerald-500/[0.02] transition-colors h-full rounded-lg">
-                <span className="text-emerald-500 text-[9px] tracking-widest uppercase">Canal Direto // WhatsApp</span>
-                <span className="text-white text-xl font-bold tracking-tight">Conversar Agora _</span>
-                <div className="w-0 h-[1px] bg-emerald-500 transition-all duration-500 group-hover:w-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/40 to-transparent" />
+              <div className="relative bg-white px-8 py-10 flex flex-col items-start gap-4 hover:bg-emerald-50/[0.02] transition-colors h-full rounded-xl border border-slate-200 shadow-sm">
+                <span className="text-emerald-600 text-[9px] tracking-widest uppercase font-bold">Canal Direto // WhatsApp</span>
+                <span className="text-slate-900 text-xl font-bold tracking-tight">Conversar Agora _</span>
+                <div className="w-0 h-[2px] bg-emerald-500 transition-all duration-500 group-hover:w-full" />
               </div>
             </a>
             <a href="https://instagram.com/logicstack.ux" target="_blank" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
-              <div className="relative bg-[#020203] px-8 py-10 flex flex-col items-start gap-4 hover:bg-white/[0.01] transition-colors h-full rounded-lg">
-                <span className="text-white/40 text-[9px] tracking-widest uppercase">Social // Portfólio</span>
-                <span className="text-white text-xl font-bold tracking-tight">Instagram _</span>
-                <div className="w-0 h-[1px] bg-white transition-all duration-500 group-hover:w-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-300 to-transparent" />
+              <div className="relative bg-white px-8 py-10 flex flex-col items-start gap-4 hover:bg-slate-50 transition-colors h-full rounded-xl border border-slate-200 shadow-sm">
+                <span className="text-slate-500 text-[9px] tracking-widest uppercase font-bold">Social // Portfólio</span>
+                <span className="text-slate-900 text-xl font-bold tracking-tight">Instagram _</span>
+                <div className="w-0 h-[2px] bg-slate-900 transition-all duration-500 group-hover:w-full" />
               </div>
             </a>
             <a href="mailto:logicstackux@outlook.com" className="group relative p-[1px] overflow-hidden transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-transparent" />
-              <div className="relative bg-[#020203] px-8 py-10 flex flex-col items-start gap-4 hover:bg-blue-500/[0.02] transition-colors h-full rounded-lg">
-                <span className="text-blue-500 text-[9px] tracking-widest uppercase">E-mail // Corporativo</span>
-                <span className="text-white text-xl font-bold tracking-tight">Enviar Proposta _</span>
-                <div className="w-0 h-[1px] bg-blue-500 transition-all duration-500 group-hover:w-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/40 to-transparent" />
+              <div className="relative bg-white px-8 py-10 flex flex-col items-start gap-4 hover:bg-blue-50/[0.02] transition-colors h-full rounded-xl border border-slate-200 shadow-sm">
+                <span className="text-blue-700 text-[9px] tracking-widest uppercase font-bold">E-mail // Corporativo</span>
+                <span className="text-slate-900 text-xl font-bold tracking-tight">Solicitar Proposta _</span>
+                <div className="w-0 h-[2px] bg-blue-700 transition-all duration-500 group-hover:w-full" />
               </div>
             </a>
           </div>
 
           <Link href="/" className="group inline-flex flex-col items-center gap-6 py-10 mb-20">
-            <span className="font-mono text-[10px] tracking-[1.5em] uppercase text-white/20 group-hover:text-blue-500 transition-colors">
+            <span className="font-mono text-[10px] tracking-[1.5em] uppercase text-slate-400 group-hover:text-blue-700 transition-colors">
               Encerrar_Terminal
             </span>
-            <div className="w-8 h-[1px] bg-white/10 group-hover:w-32 group-hover:bg-blue-500 transition-all duration-700" />
+            <div className="w-8 h-[1px] bg-slate-300 group-hover:w-32 group-hover:bg-blue-700 transition-all duration-700" />
           </Link>
         </div>
       </section>

@@ -6,15 +6,13 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    // Detecta o scroll para aplicar o efeito "Glass" na Navbar
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setScrolled(window.scrollY > 20)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Função suave para rolar até as âncoras
   const scrollTo = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
@@ -27,32 +25,32 @@ export const Navbar = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out border-b ${
+      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ease-in-out border-b ${
         scrolled 
-          ? 'bg-[#020203]/70 backdrop-blur-md border-white/10 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]' 
-          : 'bg-transparent border-transparent py-6'
+          ? 'bg-[#FAF8F5]/95 backdrop-blur-md border-slate-200/60 py-3 shadow-sm' 
+          : 'bg-transparent border-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         
-        {/* Lado Esquerdo: Logo Maior e sem o texto */}
+        {/* Lado Esquerdo: Logo Maximizado */}
         <div 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="cursor-pointer flex items-center group"
         >
-          {/* Container maior para o logo e com brilho (drop-shadow) no hover */}
-          <div className="relative w-32 h-10 md:w-40 md:h-12 group-hover:scale-105 transition-all duration-300 group-hover:[filter:drop-shadow(0_0_12px_rgba(30,144,255,0.6))]">
+          {/* Contêiner expandido e scale forçado para o conteúdo preencher a barra */}
+          <div className="relative w-60 h-16 md:w-72 md:h-20 flex items-center overflow-visible group-hover:opacity-95 transition-all duration-300">
             <Image 
-              src="/logo-navbar.png" 
-              alt="LogicStack Logo" 
+              src="/logocorreto.png" 
+              alt="LogicStack UX Logo" 
               fill
-              className="object-contain object-left"
+              className="object-contain object-left scale-150 md:scale-175 origin-left"
               priority
             />
           </div>
         </div>
 
-        {/* Centro: Links de Navegação com Efeito NEON */}
+        {/* Centro: Links de Navegação */}
         <div className="hidden md:flex items-center gap-8">
           {[
             { name: 'Manifesto', id: 'manifesto' },
@@ -62,7 +60,7 @@ export const Navbar = () => {
             <button
               key={item.name}
               onClick={() => scrollTo(item.id)}
-              className="text-white/60 hover:text-blue-400 hover:[text-shadow:0_0_15px_rgba(30,144,255,0.8),0_0_30px_rgba(30,144,255,0.4)] text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300"
+              className="text-slate-700 hover:text-sky-600 text-xs font-semibold tracking-wider uppercase transition-colors duration-200"
             >
               {item.name}
             </button>
@@ -71,13 +69,13 @@ export const Navbar = () => {
 
         {/* Lado Direito: CTA de Contato */}
         <a 
-  href="https://wa.me/5512982776902" 
-  target="_blank" 
-  rel="noopener noreferrer"
-  className="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-white tracking-widest uppercase hover:bg-blue-600 hover:border-blue-500 transition-all duration-300 shadow-[0_0_15px_rgba(30,144,255,0)] hover:shadow-[0_0_20px_rgba(30,144,255,0.6)] inline-block"
->
-  Deploy // Start
-</a>
+          href="https://wa.me/5512982776902" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-200 shadow-sm shadow-sky-500/20 hover:shadow-md inline-block"
+        >
+          Fale Conosco
+        </a>
 
       </div>
     </nav>

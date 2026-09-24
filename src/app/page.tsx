@@ -15,6 +15,28 @@ import { Footer } from '@/src/components/sections/Footer' // <-- NOVO FOOTER IMP
 
 gsap.registerPlugin(ScrollTrigger)
 
+export const WaveDivider = ({ fromColor = '#FAF8F5', toColor = '#E2E8F0', flipped = false }) => {
+  return (
+    <div 
+      className="relative w-full overflow-hidden leading-none z-20" 
+      style={{ backgroundColor: fromColor }}
+    >
+      <svg 
+        className={`relative block w-full h-32 md:h-48 lg:h-56 transition-all drop-shadow-md ${flipped ? 'scale-x-[-1]' : ''}`} 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 1200 180" 
+        preserveAspectRatio="none"
+      >
+        <path 
+          d="M0,30 C400,180 800,-60 1200,90 L1200,180 L0,180 Z" 
+          fill={toColor}
+        ></path>
+      </svg>
+    </div>
+  )
+}
+
+
 export default function Home() {
   const mainRef = useRef(null)
 
@@ -37,33 +59,37 @@ export default function Home() {
     }
   }, [])
 
-  return (
-    <main ref={mainRef} className="bg-[#020203] text-white selection:bg-blue-500/30 overflow-x-hidden relative">
+return (
+    <main ref={mainRef} className="bg-[#FAF8F5] text-slate-900 selection:bg-blue-500/30 overflow-x-hidden relative">
       
-      {/* 1. NAVBAR NO TOPO */}
+      {/* 1. NAVBAR */}
       <Navbar />
 
-      {/* 2. HERO (O vídeo de fundo e a marca) */}
+      {/* 2. HERO */}
       <div id="home">
         <Hero />
       </div>
+      <WaveDivider fromColor="#FAF8F5" toColor="#F0F4F8" />
 
-      {/* 3. MANIFESTO (A alma da empresa) */}
+      {/* 3. MANIFESTO */}
       <div id="manifesto">
         <Manifesto />
       </div>
+      <WaveDivider fromColor="#F0F4F8" toColor="#F0F4F8" flipped={true} />
 
-      {/* 4. CASES (Projetos em destaque) */}
+      {/* 4. CASES */}
       <div id="cases">
         <Cases />
       </div>
+      <WaveDivider fromColor="#F0F4F8" toColor="#FAF8F5" />
 
-      {/* 5. TECH STACK (Tecnologias utilizadas) */}
+      {/* 5. TECH STACK */}
       <div id="tech">
         <TechStack />
       </div>
+      <WaveDivider fromColor="#FAF8F5" toColor="#FAF8F5" flipped={true} />
 
-      {/* 6. FOOTER / CTA FINAL (O fechamento com o botão Iniciar Projeto) */}
+      {/* 6. FOOTER */}
       <Footer />
 
     </main>
